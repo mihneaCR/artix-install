@@ -69,7 +69,7 @@ sed -i 's/#GRUB_ENABLE_CRYPTODISK/GRUB_ENABLE_CRYPTODISK/g' /etc/default/grub
 sed -i "s/LINUX_DEFAULT=\"/LINUX_DEFAULT=\"$additional_kparams /g" /etc/default/grub
 confirm "Detect other operating systems?" && pacman -S --needed os-prober && sed -i 's/OS_PROBER=false/OS_PROBER=true/g' /etc/default/grub
 echo "OS-prober setup, mount Windows EFI and run mkconfig again to enable booting Windows!"
-
+sed -i 's/rootflags=subvol=${rootsubvol}//g' /etc/grub.d/10_linux /etc/grub.d/20_linux_xen
 grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=Artix-GRUB --removable \
 	--modules="normal test efi_gop efi_uga search echo linux all_video gfxmenu gfxterm_background gfxterm_menu gfxterm loadenv configfile gzio part_gpt btrfs"
 
