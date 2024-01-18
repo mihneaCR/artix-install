@@ -57,6 +57,7 @@ chmod 750 /.snapshots
 
 # Install GRUB
 # Confirm correct partition for UUID first
+fdisk -l | less
 read -r -p "Enter drive : " drive
 fdisk -l /dev/"$drive" | grep model
 confirm "Is this the correct drive?" && partition_uuid=$(ls -l /dev/disk/by-uuid/ | grep "$partition_uuid"2 | cut -d' ' -f9)
