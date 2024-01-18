@@ -31,6 +31,7 @@ sed -i 's/consolefont block/consolefont block encrypt/g' /etc/mkinitcpio.conf
 mkinitcpio -P
 
 # Enable arch repos for Artix
+pacman -S artix-archlinux-support
 cat <<EOF >>/etc/hosts
 # Arch Repos
 [extra]
