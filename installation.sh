@@ -136,7 +136,7 @@ if [[ "$cpu_vendor" == "AuthenticAMD" ]]; then
 elif [[ "$cpu_vendor" == "GenuineIntel" ]]; then
 	ucode_package="intel-ucode"
 fi
-
+echo 'keymap=us' > /mnt/etc/vconsole.conf
 # System installation
 basestrap /mnt base base-devel openrc elogind-openrc linux linux-firmware linux-headers "$ucode_package" btrfs-progs doas vim
 
