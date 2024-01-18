@@ -33,14 +33,14 @@ read -r -p "Press enter to continue"
 rc-service ntpd start
 pacman -Syy
 
-cryptsetup luksFormat /dev/"$drive"p2
-cryptsetup open /dev/"$drive"p2 cryptroot
+cryptsetup luksFormat /dev/"$drive"2
+cryptsetup open /dev/"$drive"2 cryptroot
 # Format partitions
-mkfs.fat -F 32 /dev/"$drive"p1
+mkfs.fat -F 32 /dev/"$drive"1
 mkfs.btrfs -L artix-root /dev/mapper/cryptroot
 
 uuid=$(lsblk -o UUID /dev/mapper/cryptroot | grep -v UUID)
-boot_uuid=$(lsblk -o UUID /dev/"$drive"p1 | grep -v UUID)
+boot_uuid=$(lsblk -o UUID /dev/"$drive"1 | grep -v UUID)
 
 mount UUID="$uuid" /mnt
 btrfs su cr /mnt/@
