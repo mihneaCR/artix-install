@@ -31,7 +31,7 @@ fi
 read -r -p "Press enter to continue"
 
 rc-service ntpd start
-pacman -Syy
+pacman -Syu
 
 cryptsetup luksFormat /dev/"$drive"2
 cryptsetup open /dev/"$drive"2 cryptroot
