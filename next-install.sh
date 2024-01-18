@@ -32,7 +32,7 @@ mkinitcpio -P
 
 # Enable arch repos for Artix
 pacman -S artix-archlinux-support
-cat <<EOF >>/etc/hosts
+cat <<EOF >>/etc/pacman.conf
 # Arch Repos
 [extra]
 Include = /etc/pacman.d/mirrorlist-arch
@@ -41,8 +41,9 @@ Include = /etc/pacman.d/mirrorlist-arch
 Include = /etc/pacman.d/mirrorlist-arch
 EOF
 pacman-key --populate archlinux
+pacman -Sy
 # snap-pac and grub-btrfs not available in artix repos
-pacman -S -needed grub efibootmgr snapper snap-pac grub-btrfs
+pacman -S --needed grub efibootmgr snapper snap-pac grub-btrfs
 
 umount /.snapshots
 rm -r /.snapshots
