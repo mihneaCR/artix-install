@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+confirm() {
+	# call with a prompt string or use a default
+	read -r -p "${1:-Are you sure? [y/N]} " response
+	case "$response" in
+	[yY][eE][sS] | [yY])
+		true
+		;;
+	*)
+		false
+		;;
+	esac
+}
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+hwclock --systohc
+echo "en_US.UTF-8 UTF-8" >>/etc/locale.gen
+locale-gen
+printf 'export LANG="en_US.UTF-8"\nexport LC_COLLATE="C"' >>/etc/locale.conf
+
+read -r -p "Hostname: " local_hostname
+read -r -p "Local domain: " local_domain
+
+cat <<EOF >>/etc/hosts
+127.0.0.1 localhost
+::1 localhost
+127.0.1.1 $local_hostname.$local_domain $local_hostname
+EOF
+# Add encrypt hook
+sed -i 's/consolefont block/consolefont block encrypt/g' /etc/mkinitcpio.conf
+mkinitcpio -P
+
+# Enable arch repos for Artix
+pacman -S artix-archlinux-support
+cat <<EOF >>/etc/hosts
+# Arch Repos
+[extra]
+Include = /etc/pacman.d/mirrorlist-arch
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist-arch
+EOF
+pacman-key --populate archlinux
