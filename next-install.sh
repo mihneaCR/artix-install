@@ -31,7 +31,7 @@ sed -i 's/consolefont block/consolefont block encrypt/g' /etc/mkinitcpio.conf
 mkinitcpio -P
 
 # Enable arch repos for Artix
-pacman -S artix-archlinux-support
+pacman -S --noconfirm artix-archlinux-support
 cat <<EOF >>/etc/pacman.conf
 # Arch Repos
 [extra]
@@ -41,9 +41,9 @@ Include = /etc/pacman.d/mirrorlist-arch
 Include = /etc/pacman.d/mirrorlist-arch
 EOF
 pacman-key --populate archlinux
-pacman -Sy
+pacman -Syu
 # snap-pac and grub-btrfs not available in artix repos
-pacman -S --needed grub efibootmgr snapper snap-pac grub-btrfs
+pacman -S --noconfirm --needed grub efibootmgr snapper snap-pac grub-btrfs
 
 umount /.snapshots
 rm -r /.snapshots
