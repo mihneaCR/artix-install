@@ -59,7 +59,7 @@ chmod 750 /.snapshots
 # Confirm correct partition for UUID first
 read -r -p "Enter drive : " drive
 fdisk -l /dev/"$drive" | grep model
-confirm "Is this the correct drive?" && partition_uuid=$(ls -l /dev/disk/by-uuid/ | grep "$partition_uuid"p2 | cut -d' ' -f9)
+confirm "Is this the correct drive?" && partition_uuid=$(ls -l /dev/disk/by-uuid/ | grep "$partition_uuid"2 | cut -d' ' -f9)
 
 # Perform necessary GRUB Configuration
 additional_kparams="cryptdevice=UUID=$partition_uuid:cryptroot:allow-discards"
