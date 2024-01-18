@@ -49,7 +49,6 @@ umount /.snapshots
 rm -r /.snapshots
 btrfs subvolume list /
 snapper --no-dbus -c root create-config /
-snapper -c root create-config /
 btrfs subvolume delete /.snapshots
 btrfs subvolume list /
 mkdir /.snapshots
